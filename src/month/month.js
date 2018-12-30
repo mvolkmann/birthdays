@@ -1,7 +1,10 @@
-import {number} from 'prop-types';
-import React, {useState} from 'react';
+import {EasyContext, Input} from 'context-easy';
 import dateFns from 'date-fns';
+import {number} from 'prop-types';
+import React, {useContext} from 'react';
+
 import Day from '../day/day';
+
 import './month.scss';
 
 const DAYS_IN_WEEK = 7;
@@ -25,7 +28,7 @@ const getDayNames = () => (
   </div>
 );
 
-function getWeek(weekNumber, start, daysInMonth, setModalVisible) {
+function getWeek(weekNumber, start, daysInMonth) {
   const days = [];
   let foundLeft = false;
 
@@ -41,10 +44,9 @@ function getWeek(weekNumber, start, daysInMonth, setModalVisible) {
     days.push(
       <Day
         classes={classes}
-        dayNumber={dayNumber}
+        day={dayNumber}
         isBlank={isBlank}
         key={'day' + d}
-        setModalVisible={setModalVisible}
       />
     );
     if (needLeft) foundLeft = true;
@@ -56,14 +58,20 @@ function getWeek(weekNumber, start, daysInMonth, setModalVisible) {
   );
 }
 
-function Month({month, year}) {
-  const [modalVisible, setModalVisible] = useState(false);
-  const [name, setName] = useState('');
+function Month({month, year, setBirthdays}) {
+  const context = useContext(EasyContext);
 
-  const cancel = () => setModalVisible(false);
+  const cancel = async () => {
+    await context.set('name', '');
+    await context.set('adding', false);
+  };
 
-  const save = () => {
-    setModalVisible(false);
+  const save = async () => {
+    const {day, name} = context;
+    const path = `birthdays.${month}.${day}`;
+    await context.transform(path, names => (names ? [...names, name] : [name]));
+    await context.set('name', '');
+    await context.set('adding', false);
   };
 
   function getModal(visible) {
@@ -71,7 +79,7 @@ function Month({month, year}) {
       <div className="backdrop">
         <div className="modal">
           <label htmlFor="name">Name</label>
-          <input onChange={e => setName(e.target.value)} value={name} />
+          <Input autoFocus path="name" />
           <div>
             <button onClick={cancel}>Cancel</button>
             <button onClick={save}>Save</button>
@@ -81,8 +89,6 @@ function Month({month, year}) {
     ) : null;
   }
 
-  console.log('month.js Month: month =', month);
-  console.log('month.js Month: year =', year);
   const firstOfMonth = new Date(year, month);
   const firstDay = firstOfMonth.getDay();
   const daysInMonth = dateFns.getDaysInMonth(new Date(year, month));
@@ -93,7 +99,7 @@ function Month({month, year}) {
   let start = daysRemainingInFirstWeek - DAYS_IN_WEEK + 1;
   const rows = [];
   for (let weekNumber = 1; weekNumber <= weekCount; weekNumber++) {
-    rows.push(getWeek(weekNumber, start, daysInMonth, setModalVisible));
+    rows.push(getWeek(weekNumber, start, daysInMonth));
     start += 7;
   }
 
@@ -101,14 +107,14 @@ function Month({month, year}) {
     <div className="month">
       {getDayNames()}
       {rows}
-      {getModal(modalVisible)}
+      {getModal(context.adding)}
     </div>
   );
 }
 
 Month.propTypes = {
-  month: number,
-  year: number
+  month: number.isRequired,
+  year: number.isRequired
 };
 
 export default Month;

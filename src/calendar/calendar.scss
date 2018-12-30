@@ -1,5 +1,15 @@
 .calendar {
+  header {
+    button {
+      margin-right: 5px;
+    }
+  }
   .selected {
     background-color: yellow;
+  }
+
+  .year {
+    font-size: 18px;
+    font-weight: bold;
   }
 }

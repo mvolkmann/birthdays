@@ -23,13 +23,16 @@
 
   .add {
     color: green;
+    font-weight: bold;
+    transform: rotate(45deg); // X rotated
+    // &#x2795; is a heavy plus, but color doesn't affect it,
+    // so using heavy X instead and rotating it.
   }
 
   button {
     border: none;
     display: inline-block;
     font-size: 14px;
-    font-weight: bold;
     padding: 0 4px 2px 0;
   }
 

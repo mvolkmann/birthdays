@@ -1,5 +1,6 @@
 //import dateFns from 'date-fns';
-import React, {useState} from 'react';
+import {EasyContext} from 'context-easy';
+import React, {useContext} from 'react';
 import Month from '../month/month';
 import './calendar.scss';
 
@@ -23,25 +24,28 @@ const todayYear = today.getFullYear();
 const todayMonth = today.getMonth();
 
 function Calendar() {
-  const [month, setMonth] = useState(todayMonth);
-  const [year, setYear] = useState(todayYear);
+  const context = useContext(EasyContext);
+  const {month, year} = context;
 
-  const changeMonth = m => {
+  const changeMonth = async m => {
+    let newYear;
+    const {year} = context;
     if (year === todayYear) {
-      if (m < todayMonth) setYear(year + 1);
+      if (m < todayMonth) newYear = year + 1;
     } else {
-      if (m >= todayMonth) setYear(year - 1);
+      if (m >= todayMonth) newYear = year - 1;
     }
-    setMonth(m);
+    if (newYear) await context.set('year', newYear);
+    await context.set('month', m);
   };
 
   return (
     <div className="calendar">
       <header>
-        <div>{year}</div>
+        <div className="year">{context.year}</div>
         {MONTHS.map((m, index) => (
           <button
-            className={index === month ? 'selected' : ''}
+            className={index === context.month ? 'selected' : ''}
             key={'button' + index}
             onClick={() => changeMonth(index)}
           >
