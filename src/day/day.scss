@@ -1,0 +1,51 @@
+@import '../share.scss';
+
+.day {
+  border-bottom: $border;
+  border-right: $border;
+  //box-sizing: border-box;
+  display: inline-block;
+  min-height: 50px;
+  padding: $day-padding;
+  width: $day-width;
+
+  &.blank {
+    border-color: transparent;
+  }
+
+  &.left {
+    border-left: $border;
+  }
+
+  &.top {
+    border-top: $border;
+  }
+
+  header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 5px;
+
+    .add {
+      border: none;
+      color: green;
+      display: inline-block;
+      font-size: 14px;
+      font-weight: bold;
+      padding: 0 4px 2px 0;
+    }
+
+    .number {
+      color: blue;
+      display: inline-block;
+      font-size: 14px;
+      font-weight: bold;
+      padding-top: 2px;
+    }
+  }
+
+  .name {
+    font-size: 12px;
+  }
+}

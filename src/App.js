@@ -1,0 +1,15 @@
+import React, {Component} from 'react';
+import Calendar from './calendar/calendar';
+import './App.scss';
+
+class App extends Component {
+  render() {
+    return (
+      <div className="App">
+        <Calendar />
+      </div>
+    );
+  }
+}
+
+export default App;

@@ -1,0 +1,29 @@
+@import '../share.scss';
+
+.month {
+  margin-top: 10px;
+
+  .day-names {
+    display: flex;
+
+    .day-name {
+      border-bottom: $border;
+      border-right: $border;
+      border-top: $border;
+      display: inline-block;
+      font-size: 80%;
+      font-weight: bold;
+      padding: $day-padding;
+      text-align: center;
+      width: $day-width;
+
+      &:first-of-type {
+        border-left: $border;
+      }
+    }
+  }
+
+  .week {
+    display: flex;
+  }
+}
