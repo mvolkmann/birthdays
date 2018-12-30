@@ -23,7 +23,9 @@ function Day({classes, day, isBlank}) {
 
   const renderHeader = () => (
     <header key="header">
-      <div className="number">{isBlank ? NBSP : day}</div>
+      <div className="number" onClick={addName}>
+        {isBlank ? NBSP : day}
+      </div>
       <button className="add" onClick={addName}>
         &#x2716;
       </button>
