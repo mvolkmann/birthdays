@@ -1,9 +1,18 @@
 .calendar {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+
   header {
+    margin-bottom: 10px;
+    text-align: center;
+
     button {
-      margin-right: 1px;
+      font-weight: bold;
+      margin: 0 5px;
     }
   }
+
   .selected {
     background-color: yellow;
   }
@@ -11,5 +20,6 @@
   .year {
     font-size: 18px;
     font-weight: bold;
+    margin-bottom: 10px;
   }
 }
