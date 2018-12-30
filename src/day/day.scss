@@ -21,20 +21,27 @@
     border-top: $border;
   }
 
+  .add {
+    color: green;
+  }
+
+  button {
+    border: none;
+    display: inline-block;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 0 4px 2px 0;
+  }
+
+  .delete {
+    color: red;
+  }
+
   header {
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
     margin-bottom: 5px;
-
-    .add {
-      border: none;
-      color: green;
-      display: inline-block;
-      font-size: 14px;
-      font-weight: bold;
-      padding: 0 4px 2px 0;
-    }
 
     .number {
       color: blue;
@@ -46,6 +53,9 @@
   }
 
   .name {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     font-size: 12px;
   }
 }

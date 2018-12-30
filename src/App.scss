@@ -1,9 +1,11 @@
+@import './share.scss';
+
 body {
   font-family: sans-serif;
   font-size: 14px;
 }
 
 button {
-  border-radius: 4px;
+  border-radius: $border-radius;
   padding: 4px;
 }

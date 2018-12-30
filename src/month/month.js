@@ -1,5 +1,5 @@
 import {number} from 'prop-types';
-import React from 'react';
+import React, {useState} from 'react';
 import dateFns from 'date-fns';
 import Day from '../day/day';
 import './month.scss';
@@ -25,7 +25,7 @@ const getDayNames = () => (
   </div>
 );
 
-function getWeek(weekNumber, start, daysInMonth) {
+function getWeek(weekNumber, start, daysInMonth, setModalVisible) {
   const days = [];
   let foundLeft = false;
 
@@ -44,6 +44,7 @@ function getWeek(weekNumber, start, daysInMonth) {
         dayNumber={dayNumber}
         isBlank={isBlank}
         key={'day' + d}
+        setModalVisible={setModalVisible}
       />
     );
     if (needLeft) foundLeft = true;
@@ -56,6 +57,30 @@ function getWeek(weekNumber, start, daysInMonth) {
 }
 
 function Month({month, year}) {
+  const [modalVisible, setModalVisible] = useState(false);
+  const [name, setName] = useState('');
+
+  const cancel = () => setModalVisible(false);
+
+  const save = () => {
+    setModalVisible(false);
+  };
+
+  function getModal(visible) {
+    return visible ? (
+      <div className="backdrop">
+        <div className="modal">
+          <label htmlFor="name">Name</label>
+          <input onChange={e => setName(e.target.value)} value={name} />
+          <div>
+            <button onClick={cancel}>Cancel</button>
+            <button onClick={save}>Save</button>
+          </div>
+        </div>
+      </div>
+    ) : null;
+  }
+
   console.log('month.js Month: month =', month);
   console.log('month.js Month: year =', year);
   const firstOfMonth = new Date(year, month);
@@ -68,7 +93,7 @@ function Month({month, year}) {
   let start = daysRemainingInFirstWeek - DAYS_IN_WEEK + 1;
   const rows = [];
   for (let weekNumber = 1; weekNumber <= weekCount; weekNumber++) {
-    rows.push(getWeek(weekNumber, start, daysInMonth));
+    rows.push(getWeek(weekNumber, start, daysInMonth, setModalVisible));
     start += 7;
   }
 
@@ -76,6 +101,7 @@ function Month({month, year}) {
     <div className="month">
       {getDayNames()}
       {rows}
+      {getModal(modalVisible)}
     </div>
   );
 }

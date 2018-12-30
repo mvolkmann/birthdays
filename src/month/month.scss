@@ -23,6 +23,31 @@
     }
   }
 
+  .backdrop {
+    background-color: rgba(0, 0, 0, 0.4);
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 1;
+
+    .modal {
+      background-color: white;
+      border: solid black 3px;
+      border-radius: $border-radius;
+      padding: 10px;
+      width: 300px;
+      height: 300px;
+
+      // Center in viewport.
+      position: fixed;
+      left: 50vw;
+      top: 50vh;
+      transform: translate(-50%, -50%);
+    }
+  }
+
   .week {
     display: flex;
   }
