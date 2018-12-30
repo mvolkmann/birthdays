@@ -66,7 +66,8 @@ function Month({month, year, setBirthdays}) {
     await context.set('adding', false);
   };
 
-  const save = async () => {
+  const save = async event => {
+    event.preventDefault();
     const {day, name} = context;
     const path = `birthdays.${month}.${day}`;
     await context.transform(path, names => (names ? [...names, name] : [name]));
@@ -77,14 +78,14 @@ function Month({month, year, setBirthdays}) {
   function getModal(visible) {
     return visible ? (
       <div className="backdrop">
-        <div className="modal">
+        <form className="modal">
           <label htmlFor="name">Name</label>
           <Input autoFocus path="name" />
           <div>
-            <button onClick={cancel}>Cancel</button>
             <button onClick={save}>Save</button>
+            <button onClick={cancel}>Cancel</button>
           </div>
-        </div>
+        </form>
       </div>
     ) : null;
   }
