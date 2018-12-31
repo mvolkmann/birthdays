@@ -9,15 +9,24 @@ const NBSP = '\u00A0';
 function Day({classes, day, isBlank}) {
   const context = useContext(EasyContext);
   const {month} = context;
+  const dayPath = `birthdays.${month}.${day}`;
 
   const addName = async () => {
     await context.set('day', day);
     await context.set('adding', true);
   };
 
-  const deleteName = name => context.filter(getDayPath(), n => n !== name);
+  const deleteName = name => context.filter(dayPath, n => n !== name);
 
-  const finishModify = async () => {
+  const finishModify = async namePath => {
+    const name = context.get(namePath);
+    const names = context.get(dayPath);
+    if (names.includes(name)) {
+      // Remove duplicate.
+      const index = names.lastIndexOf(name);
+      names.splice(index, 1);
+      context.set(dayPath, names);
+    }
     await context.set('modifying', null);
     await context.set('name', '');
   };
@@ -29,8 +38,6 @@ function Day({classes, day, isBlank}) {
     target.setSelectionRange(length, length);
   };
 
-  const getDayPath = () => `birthdays.${month}.${day}`;
-
   const getModifyingKey = index => day + '.' + index;
 
   const modify = index => context.set('modifying', getModifyingKey(index));
@@ -41,16 +48,17 @@ function Day({classes, day, isBlank}) {
     const names = birthdaysInMonth ? birthdaysInMonth[day] || [] : [];
     return names.map((name, index) => {
       const isModifying = modifying === getModifyingKey(index);
-      const path = getDayPath() + '.' + index;
+      const path = dayPath + '.' + index;
+      const afterModify = () => finishModify(path);
       return (
         <div className="line" key={'name' + index}>
           {isModifying ? (
             <Input
               autoFocus
               path={path}
-              onBlur={finishModify}
+              onBlur={afterModify}
               onFocus={focus}
-              onEnter={finishModify}
+              onEnter={afterModify}
             />
           ) : (
             <div className="name" onClick={() => modify(index)}>

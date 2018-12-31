@@ -69,8 +69,19 @@ function Month({month, year}) {
   const save = async event => {
     event.preventDefault();
     const {day, name} = context;
+
+    /*
+    const res = await fetch(`${URL_PREFIX}/${month}/${day}/${name}`, {
+      method: 'POST'
+    });
+    */
+
     const path = `birthdays.${month}.${day}`;
-    await context.transform(path, names => (names ? [...names, name] : [name]));
+    await context.transform(path, names => {
+      // Don't allow duplicate names.
+      if (names && names.includes(name)) return names;
+      return names ? [...names, name] : [name];
+    });
     await context.set('name', '');
     await context.set('adding', false);
   };
