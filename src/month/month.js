@@ -4,6 +4,7 @@ import {number} from 'prop-types';
 import React, {useContext} from 'react';
 
 import Day from '../day/day';
+import {REST_URL_PREFIX} from '../rest';
 
 import './month.scss';
 
@@ -70,11 +71,10 @@ function Month({month, year}) {
     event.preventDefault();
     const {day, name} = context;
 
-    /*
-    const res = await fetch(`${URL_PREFIX}/${month}/${day}/${name}`, {
+    const res = await fetch(`${REST_URL_PREFIX}/${month}/${day}/${name}`, {
       method: 'POST'
     });
-    */
+    if (!res.ok) return;
 
     const path = `birthdays.${month}.${day}`;
     await context.transform(path, names => {

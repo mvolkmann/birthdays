@@ -62,7 +62,14 @@ app.put('/birthdays/:month/:day/:oldName/:newName', (req, res) => {
 
   if (!names.includes(oldName)) return res.send(NOT_FOUND);
 
-  monthObj[day] = names.map(n => (n === oldName ? newName : n));
+  if (names.includes(newName)) {
+    // Delete the old name.
+    monthObj[day] = names.filter(n => n !== oldName);
+  } else {
+    // Replace the old name with the new name.
+    monthObj[day] = names.map(n => (n === oldName ? newName : n));
+  }
+
   res.send();
 });
 

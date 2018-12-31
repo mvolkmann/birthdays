@@ -1,7 +1,10 @@
 //import dateFns from 'date-fns';
 import {EasyContext} from 'context-easy';
 import React, {useContext, useEffect} from 'react';
+
 import Month from '../month/month';
+import {REST_URL_PREFIX} from '../rest';
+
 import './calendar.scss';
 
 const MONTHS = [
@@ -29,9 +32,7 @@ function Calendar() {
   const {month, year} = context;
 
   useEffect(async () => {
-    console.log('calendar.js effect: loading birthdays');
-    const url = 'http://localhost:3001/birthdays';
-    const res = await fetch(url);
+    const res = await fetch(REST_URL_PREFIX);
     const json = await res.json();
     context.set('birthdays', json);
   }, []);
