@@ -18,10 +18,8 @@ function Day({classes, day, isBlank}) {
   const deleteName = name => context.filter(getDayPath(), n => n !== name);
 
   const finishModify = async () => {
-    console.log('day.js finishModify: entered');
-    await context.delete('modifying');
-    await context.delete('name');
-    console.log('day.js finishModify: exiting');
+    await context.set('modifying', null);
+    await context.set('name', '');
   };
 
   const getDayPath = () => `birthdays.${month}.${day}`;
@@ -37,12 +35,10 @@ function Day({classes, day, isBlank}) {
     return names.map((name, index) => {
       const isModifying = modifying === getModifyingKey(index);
       const path = getDayPath() + '.' + index;
-      console.log('day.js renderNames: path =', path);
-      console.log('day.js renderNames: value =', context.get(path));
       return (
         <div className="line" key={'name' + index}>
           {isModifying ? (
-            <Input path={path} onBlur={finishModify} />
+            <Input path={path} onBlur={finishModify} onEnter={finishModify} />
           ) : (
             <div className="name" onClick={() => modify(index)}>
               {name}
