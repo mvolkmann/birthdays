@@ -40,7 +40,14 @@
     color: red;
   }
 
-  header {
+  .line {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 12px;
+  }
+
+  .top {
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
@@ -53,12 +60,5 @@
       font-weight: bold;
       padding-top: 2px;
     }
-  }
-
-  .name {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    font-size: 12px;
   }
 }
