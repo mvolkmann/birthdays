@@ -1,0 +1,17 @@
+{
+  "name": "birthdays-server",
+  "version": "0.1.0",
+  "dependencies": {
+    "express": "^4.16.4",
+    "morgan": "^1.9.1"
+  },
+  "scripts": {
+    "format": "prettier --write 'src/**/*.{js,scss}'",
+    "lint": "eslint --quiet src --ext .js",
+    "start": "nodemon server.js"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.9",
+    "prettier": "^1.15.3"
+  }
+}

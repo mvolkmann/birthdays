@@ -60,6 +60,10 @@ This capability is **not enabled by default**.
 To enable it, edit `src/index.js`
 and change the line `serviceWorker.unregister();`
 to `serviceWorker.register();`.
+This only takes effect if the environment variable
+`NODE_ENV` is set to `production`.
+For testing in development, the first line in the `register` function
+can be modified to omit this check.
 
 This uses the workbox-webpack-plugin to cache assets
 and keep them up to date when changes are deployed.

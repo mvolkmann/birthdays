@@ -1,7 +1,6 @@
 {
   "name": "birthdays",
   "version": "0.1.0",
-  "private": true,
   "dependencies": {
     "context-easy": "^0.8.5",
     "date-fns": "^1.30.1",
