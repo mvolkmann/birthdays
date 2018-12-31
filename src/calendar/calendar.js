@@ -35,7 +35,7 @@ function Calendar() {
     const res = await fetch(REST_URL_PREFIX);
     const json = await res.json();
     context.set('birthdays', json);
-  }, []);
+  }, []); // only called once
 
   const changeMonth = async m => {
     let newYear;
