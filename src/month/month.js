@@ -90,9 +90,9 @@ function Month({month, year}) {
     ) : null;
   }
 
-  const firstOfMonth = new Date(year, month);
+  const firstOfMonth = new Date(year, month - 1);
   const firstDay = firstOfMonth.getDay();
-  const daysInMonth = dateFns.getDaysInMonth(new Date(year, month));
+  const daysInMonth = dateFns.getDaysInMonth(new Date(year, month - 1));
   const daysRemainingInFirstWeek = DAYS_IN_WEEK - firstDay;
   const weekCount =
     1 + Math.ceil((daysInMonth - daysRemainingInFirstWeek) / DAYS_IN_WEEK);

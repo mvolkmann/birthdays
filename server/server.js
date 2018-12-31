@@ -1,4 +1,5 @@
 'use strict';
+const cors = require('cors');
 const express = require('express');
 const morgan = require('morgan');
 
@@ -15,9 +16,8 @@ const birthdays = {
 };
 
 const app = express();
-
+app.use(cors());
 app.use(morgan('short')); // logging
-
 app.use(express.static('../public'));
 
 // Gets all the birthdays.

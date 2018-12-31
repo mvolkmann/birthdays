@@ -1,10 +1,11 @@
 //import dateFns from 'date-fns';
 import {EasyContext} from 'context-easy';
-import React, {useContext} from 'react';
+import React, {useContext, useEffect} from 'react';
 import Month from '../month/month';
 import './calendar.scss';
 
 const MONTHS = [
+  '', // so indexes start from 1
   'January',
   'February',
   'March',
@@ -21,11 +22,19 @@ const MONTHS = [
 
 const today = new Date();
 const todayYear = today.getFullYear();
-const todayMonth = today.getMonth();
+const todayMonth = today.getMonth() + 1;
 
 function Calendar() {
   const context = useContext(EasyContext);
   const {month, year} = context;
+
+  useEffect(async () => {
+    console.log('calendar.js effect: loading birthdays');
+    const url = 'http://localhost:3001/birthdays';
+    const res = await fetch(url);
+    const json = await res.json();
+    context.set('birthdays', json);
+  }, []);
 
   const changeMonth = async m => {
     let newYear;
@@ -43,15 +52,17 @@ function Calendar() {
     <div className="calendar">
       <header>
         <div className="year">{context.year}</div>
-        {MONTHS.map((m, index) => (
-          <button
-            className={index === context.month ? 'selected' : ''}
-            key={'button' + index}
-            onClick={() => changeMonth(index)}
-          >
-            {m}
-          </button>
-        ))}
+        {MONTHS.map((monthName, index) =>
+          index === 0 ? null : (
+            <button
+              className={index === context.month ? 'selected' : ''}
+              key={'button' + index}
+              onClick={() => changeMonth(index)}
+            >
+              {monthName}
+            </button>
+          )
+        )}
       </header>
       <Month month={month} year={year} />
     </div>

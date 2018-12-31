@@ -8,7 +8,7 @@ const initialState = {
   adding: false,
   birthdays: {},
   day: 0,
-  month: today.getMonth(),
+  month: today.getMonth() + 1,
   name: '',
   year: today.getFullYear()
 };
