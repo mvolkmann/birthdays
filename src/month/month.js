@@ -58,7 +58,7 @@ function getWeek(weekNumber, start, daysInMonth) {
   );
 }
 
-function Month({month, year, setBirthdays}) {
+function Month({month, year}) {
   const context = useContext(EasyContext);
 
   const cancel = async () => {

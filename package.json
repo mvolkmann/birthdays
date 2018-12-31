@@ -11,10 +11,11 @@
     "react-scripts": "2.1.2"
   },
   "scripts": {
-    "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "format": "prettier --write 'src/**/*.{js,scss}'",
+    "lint": "eslint --quiet src --ext .js",
+    "start": "react-scripts start",
+    "test": "react-scripts test"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -26,6 +27,9 @@
     "not op_mini all"
   ],
   "devDependencies": {
-    "node-sass": "^4.11.0"
+    "eslint-plugin-html": "^5.0.0",
+    "eslint-plugin-react": "^7.12.0",
+    "node-sass": "^4.11.0",
+    "prettier": "^1.15.3"
   }
 }

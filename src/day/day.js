@@ -24,7 +24,7 @@ function Day({classes, day, isBlank}) {
 
   const getDayPath = () => `birthdays.${month}.${day}`;
 
-  const getModifyingKey = name => day + '|' + name;
+  const getModifyingKey = index => day + '.' + index;
 
   const modify = index => context.set('modifying', getModifyingKey(index));
 

@@ -30,12 +30,12 @@ function Calendar() {
   const changeMonth = async m => {
     let newYear;
     const {year} = context;
+
     if (year === todayYear) {
       if (m < todayMonth) newYear = year + 1;
-    } else {
-      if (m >= todayMonth) newYear = year - 1;
-    }
+    } else if (m >= todayMonth) newYear = year - 1;
     if (newYear) await context.set('year', newYear);
+
     await context.set('month', m);
   };
 
