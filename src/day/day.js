@@ -22,6 +22,13 @@ function Day({classes, day, isBlank}) {
     await context.set('name', '');
   };
 
+  // Moves cursor to end of input value.
+  const focus = event => {
+    const {target} = event;
+    const {length} = target.value;
+    target.setSelectionRange(length, length);
+  };
+
   const getDayPath = () => `birthdays.${month}.${day}`;
 
   const getModifyingKey = index => day + '.' + index;
@@ -38,7 +45,13 @@ function Day({classes, day, isBlank}) {
       return (
         <div className="line" key={'name' + index}>
           {isModifying ? (
-            <Input path={path} onBlur={finishModify} onEnter={finishModify} />
+            <Input
+              autoFocus
+              path={path}
+              onBlur={finishModify}
+              onFocus={focus}
+              onEnter={finishModify}
+            />
           ) : (
             <div className="name" onClick={() => modify(index)}>
               {name}
