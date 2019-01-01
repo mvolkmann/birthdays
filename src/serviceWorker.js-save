@@ -11,6 +11,8 @@
 // To learn more about the benefits of this model and instructions on how to
 // opt-in, read http://bit.ly/CRA-PWA
 
+const isLocalhost = false;
+/*
 const isLocalhost = Boolean(
   window.location.hostname === 'localhost' ||
     // [::1] is the IPv6 localhost address.
@@ -20,8 +22,10 @@ const isLocalhost = Boolean(
       /^127(?:\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$/
     )
 );
+*/
 
 export function register(config) {
+  console.log('serviceWorker.js register: entered');
   //if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {
   if ('serviceWorker' in navigator) {
     // The URL constructor is available in all browsers that support SW.
@@ -34,6 +38,7 @@ export function register(config) {
     }
 
     window.addEventListener('load', () => {
+      console.log('serviceWorker.js load: entered');
       const swUrl = `${process.env.PUBLIC_URL}/service-worker.js`;
 
       if (isLocalhost) {
@@ -57,6 +62,7 @@ export function register(config) {
 }
 
 function registerValidSW(swUrl, config) {
+  console.log('serviceWorker.js registerValidSW: entered');
   navigator.serviceWorker
     .register(swUrl)
     .then(registration => {
@@ -101,6 +107,7 @@ function registerValidSW(swUrl, config) {
 }
 
 function checkValidServiceWorker(swUrl, config) {
+  console.log('serviceWorker.js checkValidServiceWorker: entered');
   // Check if the service worker can be found. If it can't reload the page.
   fetch(swUrl)
     .then(response => {
@@ -129,6 +136,7 @@ function checkValidServiceWorker(swUrl, config) {
 }
 
 export function unregister() {
+  console.log('serviceWorker.js unregister: entered');
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.ready.then(registration => {
       registration.unregister();

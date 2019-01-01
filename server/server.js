@@ -18,7 +18,7 @@ const birthdays = {
 const app = express();
 app.use(cors());
 app.use(morgan('short')); // logging
-app.use(express.static('../public'));
+app.use(express.static('../build'));
 
 // Gets all the birthdays.
 app.get('/birthdays', (req, res) => {

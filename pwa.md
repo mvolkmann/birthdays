@@ -2,7 +2,84 @@
 
 ## Overview
 
+Progressive web applications (PWAs) can provide many of the features
+typically associated with native applications.
+These include the ability to:
+
+- continue working while offline,
+  possibly with reduced functionality
+  and delayed transactions
+- install a homescreen icon that can
+  be used to launch the application
+- launch quickly without requiring download
+  of files from the internet
+- communicate with users via dialog boxes, even after
+  they have left the application, to reengage them
+  (using the Push API and the Notifications API)
+- look like native apps by running
+  without browser chrome or in full-screen mode
+- support multiple operating systems with a single code base,
+  reducing development costs
+
+## Installing Applications
+
+Users are only willing to install a limited number of applications
+on their mobile devices. PWAs provide an alternative that is
+less intrusive than requiring yet another app download and install.
+
+The steps to run a new PWA for the first time are:
+
+1. open a web browser
+2. search for the application or enter its URL
+3. click its link
+4. optionally add a desktop icon
+   for launching the app again in the future
+   with a single click
+
+Often the first three steps are replaced by clicking
+a link that is found in another way such as
+in an email message or a social media site.
+In this case a new PWA can be launched with a single click!
+
+The steps to run a new native app for the first time are:
+
+1. open the platform app store
+2. search for the app
+3. click an "install" button
+4. locate the homescreen icon
+5. click the homescreen icon
+
+App stores typically allow newly installed apps to be run
+from the app store immediately after they are installed
+by clicking a button. This replaces steps 4 and 5.
+So the minimum number of steps is four.
+Some percentage of users will bail out before this is completed
+simply due to the number of steps required.
+
+Once a PWA or native app is installed,
+launching it again is the same.
+Clicking a homescreen icon is all that is required.
+
 ## Service Workers
+
+Service workers are the key to many PWA features.
+Each is implemented by a JavaScript file.
+They execute separately from their associated web application
+and can communicate with any number of pages within it.
+A user can close the web application browser tab or window
+and its service workers can continue executing.
+
+Service workers do not have access to the DOM
+and cannot use some browser APIs (which ones?).
+
+Normally service workers must be served over HTTPS
+for security reasons. For developer convenience,
+they can be served over HTTP when using a localhost server.
+
+A PWA can register any number of service workers.
+Typically only one is used.
+
+Service workers listen for events and act on them.
 
 Lifecycle events ...
 
@@ -12,6 +89,54 @@ In Chrome, one approach to force files to be reloaded
 on the next browser refresh is to open the devtools,
 select the "Application" tab, select "Service Workers",
 and click the "Unregister" link for the service worker.
+
+Service workers can cache the files that are fetched from URLs.
+To see these in Chrome devtools, click the "Application" tab
+and open the "Cache Storage" section in the left nav.
+
+During development it is desirable to reload the cached files
+when the browser is refreshed. To enable this in Chrome,
+open the devtools, click the "Application" tab,
+and check the "Update on reload" checkbox.
+
+## Manifest File
+
+Service workers require a `manifest.json` file.
+These are typically located at the top of the `public` directory
+along with `index.html`.
+
+There are many properties that can be set in the manifest file.
+SEE PAGE 176-181 FOR DETAILS!
+The following properties are required:
+
+- `name` and/or `short_name`
+- `start_url`
+- `icons`
+- `display`
+
+Other properties that can be set include:
+
+- `description`
+- `orientation`
+- `theme_color`
+- `background_color`
+- `scope`
+- `dir`
+- `lang`
+- `prefer_related_applications`
+- `related_applications`
+
+Once a service worker has been registered,
+its manifest can be examined in Chrome devtools
+by clicking the "Application" tab
+and clicking "Manifest" in the left nav.
+
+## Service Workers in React
+
+Build the app by entering `npm run build`.
+In development, start a local HTTP server that
+is configured to serve up the `build` directory.
+For example, this could be a simple Express server.
 
 ## Working Offline With Cached Assets
 
@@ -70,6 +195,16 @@ and keep them up to date when changes are deployed.
 
 It is recommended to leave this disabled during development
 because it can make debugging more difficult.
+
+There are many ways to be offline
+for testing offline operation of a PWA.
+
+- When using a local server, stop the server.
+- When connecting via ethernet, you can disconnect the ethernet cable.
+- When connecting via wi-fi, you can turn off wi-fi.
+- It does not work to open the Chrome devtools,
+  click the "Network" tab, and check the "Offline" checkbox
+  and I don't know why!
 
 ## Future
 

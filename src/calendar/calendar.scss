@@ -1,3 +1,5 @@
+@import '../share.scss';
+
 .calendar {
   display: flex;
   align-items: center;
@@ -21,5 +23,22 @@
     font-size: 18px;
     font-weight: bold;
     margin-bottom: 10px;
+  }
+
+  @media screen and (max-width: $mobile-breakpoint) {
+    header {
+      button {
+        margin: 2px;
+      }
+      /*
+      button:nth-of-type(4n) {
+        outline: solid blue 1px;
+      }
+      */
+      button:nth-of-type(4n):after {
+        content: '\a';
+        white-space: pre;
+      }
+    }
   }
 }

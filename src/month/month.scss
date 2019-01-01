@@ -55,4 +55,23 @@
   .week {
     display: flex;
   }
+
+  @media screen and (max-width: $mobile-breakpoint) {
+    .day {
+      outline: solid red 1px;
+      display: block;
+
+      &.blank {
+        display: none;
+      }
+    }
+
+    .day-names {
+      display: none;
+    }
+
+    .week {
+      display: block;
+    }
+  }
 }
